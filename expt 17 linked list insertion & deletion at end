@@ -1,0 +1,100 @@
+#include <iostream>
+using namespace std;
+class Node {
+public:
+    int data;
+    Node* next;
+
+    Node(int value) {
+        data = value;
+        next = nullptr;
+    }
+};
+
+class LinkedList {
+private:
+    Node* head;
+
+public:
+    LinkedList() {
+        head = nullptr;
+    }
+ void insertEnd(int value) {
+        Node* newNode = new Node(value);
+
+        if (head == nullptr) {
+            head = newNode;
+        } else {
+            Node* current = head;
+            while (current->next != nullptr) {
+                current = current->next;
+            }
+            current->next = newNode;
+        }
+
+        std::cout << "Inserted " << value << " at the end of the list." << std::endl;
+    }
+
+
+    void deleteEnd() {
+        if (head == nullptr) {
+            std::cout << "The list is empty. Nothing to delete." << std::endl;
+            return;
+        }
+
+        if (head->next == nullptr) {
+            std::cout << "Deleted " << head->data << " from the end of the list." << std::endl;
+            delete head;
+            head = nullptr;
+            return;
+        }
+
+        Node* current = head;
+        Node* prev = nullptr;
+
+        while (current->next != nullptr) {
+            prev = current;
+            current = current->next;
+        }
+
+        std::cout << "Deleted " << current->data << " from the end of the list." << std::endl;
+        delete current;
+        prev->next = nullptr;
+    }
+    void display() {
+        if (head == nullptr) {
+            std::cout << "The list is empty." << std::endl;
+            return;
+        }
+
+        Node* current = head;
+        std::cout << "Linked List: ";
+        while (current != nullptr) {
+            std::cout << current->data << " ";
+            current = current->next;
+        }
+        std::cout << std::endl;
+    }
+};
+
+int main() {
+    LinkedList list;
+
+    list.insertEnd(10);
+    list.insertEnd(20);
+    list.insertEnd(30);
+    list.display();
+
+    list.deleteEnd();
+    list.display();
+
+    list.deleteEnd();
+    list.display();
+
+    list.deleteEnd();
+    list.display();
+
+    list.deleteEnd();
+
+    return 0;
+}
